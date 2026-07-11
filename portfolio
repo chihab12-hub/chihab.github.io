@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5" />
+  <meta name="description" content="Portfolio de Kazi Tani Chihab Eddine – Étudiant MSc AI Applied to Business à Eugenia School, en recherche d'alternance." />
+  <meta name="author" content="Kazi Tani Chihab Eddine" />
+  <title>Chihab Kazi Tani · Portfolio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ===== DESIGN TOKENS ===== */
+    :root {
+      --bg:          #0a0a0a;
+      --surface:     #141414;
+      --surface-2:   #1e1e1e;
+      --accent:      #53c28b;
+      --accent-dim:  rgba(83,194,139,.12);
+      --accent-glow: rgba(83,194,139,.22);
+      --text:        #f0f0f0;
+      --text-muted:  #888;
+      --border:      rgba(255,255,255,.07);
+      --radius:      12px;
+      --nav-h:       64px;
+      --max-w:       1100px;
+      --ease:        cubic-bezier(.4,0,.2,1);
+    }
+
+    /* ===== RESET ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+    }
+    a  { color: inherit; text-decoration: none; }
+    ul { list-style: none; }
+    img { max-width: 100%; display: block; }
+
+    /* ===== UTILITIES ===== */
+    .container { max-width: var(--max-w); margin: 0 auto; padding: 0 1.35rem; }
+    .section    { padding: 5.5rem 0; }
+
+    .section-eyebrow {
+      display: inline-block;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: .18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: .65rem;
+    }
+    .section-title {
+      font-size: clamp(1.8rem, 4vw, 2.6rem);
+      font-weight: 900;
+      line-height: 1.1;
+      letter-spacing: -.02em;
+      margin-bottom: .5rem;
+    }
+    .section-sub {
+      color: var(--text-muted);
+      font-size: .95rem;
+      max-width: 480px;
+      margin-bottom: 3rem;
+    }
+    .divider { height: 1px; background: var(--border); }
+
+    /* BUTTONS */
+    .btn {
+      display: inline-flex; align-items: center; gap: .45rem;
+      padding: .65rem 1.45rem;
+      border-radius: 6px;
+      font-size: .88rem;
+      font-weight: 700;
+      letter-spacing: .01em;
+      cursor: pointer;
+      border: none;
+      transition: background .22s var(--ease), color .22s var(--ease),
+                  transform .18s var(--ease), box-shadow .22s var(--ease);
+    }
+    .btn-primary { background: var(--accent); color: #000; }
+    .btn-primary:hover {
+      background: #6fe0a4;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(83,194,139,.25);
+    }
+    .btn-outline { background: transparent; color: var(--accent); border: 1.5px solid var(--accent); }
+    .btn-outline:hover { background: var(--accent-dim); }
+
+    /* TAGS */
+    .tag {
+      font-size: .7rem;
+      font-weight: 700;
+      background: var(--accent-dim);
+      color: var(--accent);
+      padding: .18rem .6rem;
+      border-radius: 99px;
+      letter-spacing: .04em;
+    }
+
+    /* ===== NAVBAR ===== */
+    .nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      height: var(--nav-h);
+      background: rgba(10,10,10,.82);
+      backdrop-filter: blur(16px) saturate(1.4);
+      -webkit-backdrop-filter: blur(16px) saturate(1.4);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      display: flex; align-items: center; justify-content: space-between;
+      height: 100%;
+    }
+    .nav-logo {
+      font-size: 1.15rem; font-weight: 900; letter-spacing: -.03em;
+    }
+    .nav-logo span { color: var(--accent); }
+
+    .nav-links {
+      display: flex; align-items: center; gap: 2rem;
+    }
+    .nav-links a {
+      font-size: .85rem; font-weight: 500;
+      color: var(--text-muted);
+      transition: color .2s var(--ease);
+      position: relative;
+    }
+    .nav-links a::after {
+      content: '';
+      position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 1.5px;
+      background: var(--accent);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform .25s var(--ease);
+    }
+    .nav-links a:hover { color: var(--accent); }
+    .nav-links a:hover::after, .nav-links a.active::after { transform: scaleX(1); }
+    .nav-links a.active { color: var(--accent); }
+
+    .nav-socials { display: flex; align-items: center; gap: .9rem; }
+    .nav-socials a {
+      color: var(--text-muted);
+      transition: color .2s var(--ease);
+      display: flex; align-items: center;
+    }
+    .nav-socials a:hover { color: var(--accent); }
+
+    .nav-toggle {
+      display: none;
+      background: none; border: none; cursor: pointer;
+      color: var(--text); padding: .3rem;
+    }
+
+    /* MOBILE MENU */
+    .mobile-menu {
+      display: none;
+      position: fixed; top: var(--nav-h); left: 0; right: 0; z-index: 190;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      padding: 1.6rem 1.35rem;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 1rem; font-weight: 500;
+      color: var(--text-muted);
+      transition: color .18s;
+    }
+    .mobile-menu a:hover { color: var(--accent); }
+    .mm-socials {
+      display: flex; gap: 1rem; padding-top: .6rem;
+      border-top: 1px solid var(--border);
+    }
+    .mm-socials a { color: var(--text-muted); transition: color .18s; }
+    .mm-socials a:hover { color: var(--accent); }
+
+    /* ===== HERO ===== */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      position: relative; overflow: hidden;
+      padding-top: var(--nav-h);
+    }
+    /* decorative circle shape (top-right, like reference site) */
+    .hero-shape {
+      position: absolute; top: -8%; right: -4%;
+      width: 52%; max-width: 680px;
+      opacity: .055; pointer-events: none; z-index: 0;
+    }
+    /* radial green glow behind name */
+    .hero-glow {
+      position: absolute; top: 46%; left: 38%;
+      transform: translate(-50%,-50%);
+      width: 640px; height: 640px;
+      background: radial-gradient(circle, var(--accent-glow) 0%, transparent 68%);
+      pointer-events: none; z-index: 0;
+      animation: glowPulse 6s ease-in-out infinite alternate;
+    }
+    @keyframes glowPulse {
+      from { opacity: .45; transform: translate(-50%,-50%) scale(1); }
+      to   { opacity: .75; transform: translate(-50%,-50%) scale(1.1); }
+    }
+
+    .hero-content { position: relative; z-index: 1; }
+    .hero-greeting {
+      font-size: 1.05rem; font-weight: 500;
+      color: var(--text-muted); margin-bottom: .75rem;
+    }
+    .hero-name {
+      font-size: clamp(2.8rem, 7.5vw, 5.8rem);
+      font-weight: 900;
+      line-height: 1.04;
+      letter-spacing: -.035em;
+      margin-bottom: 1.3rem;
+    }
+    .hero-name .hl { color: var(--accent); }
+
+    .hero-pitch {
+      font-size: clamp(.95rem, 2vw, 1.15rem);
+      color: var(--text-muted);
+      max-width: 560px;
+      line-height: 1.75;
+      margin-bottom: 2.2rem;
+    }
+    .hero-pitch strong { color: var(--text); }
+
+    .hero-ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+    /* scroll indicator */
+    .hero-scroll {
+      position: absolute; bottom: 2rem; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: .35rem;
+      color: var(--text-muted); font-size: .65rem; letter-spacing: .14em; text-transform: uppercase;
+      animation: scrollBounce 2.6s ease-in-out infinite;
+    }
+    @keyframes scrollBounce {
+      0%,100% { transform: translateX(-50%) translateY(0); }
+      50%      { transform: translateX(-50%) translateY(7px); }
+    }
+
+    /* ===== ABOUT ===== */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: start;
+    }
+    .about-text p { color: var(--text-muted); line-height: 1.82; margin-bottom: 1rem; }
+    .about-text strong { color: var(--text); }
+    .about-ctas { display: flex; gap: .75rem; flex-wrap: wrap; margin-top: 1.5rem; }
+
+    /* Education cards */
+    .edu-list { display: flex; flex-direction: column; gap: 1.1rem; }
+    .edu-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.2rem 1.4rem 1.2rem 1.6rem;
+      position: relative; overflow: hidden;
+      transition: border-color .22s var(--ease);
+    }
+    .edu-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px;
+      background: var(--accent);
+      border-radius: 3px 0 0 3px;
+    }
+    .edu-card:hover { border-color: rgba(83,194,139,.45); }
+    .edu-date   { font-size: .68rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--accent); margin-bottom: .28rem; }
+    .edu-degree { font-weight: 700; font-size: .93rem; margin-bottom: .18rem; }
+    .edu-school { font-size: .8rem; color: var(--text-muted); }
+    .edu-badge  {
+      display: inline-block; margin-top: .55rem;
+      font-size: .68rem; font-weight: 700;
+      background: var(--accent-dim); color: var(--accent);
+      padding: .15rem .65rem; border-radius: 99px;
+    }
+
+    /* ===== EXPERIENCE ===== */
+    .exp-list { display: flex; flex-direction: column; gap: 1.4rem; }
+    .exp-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.75rem;
+      transition: border-color .22s var(--ease), transform .22s var(--ease);
+    }
+    .exp-card:hover { border-color: rgba(83,194,139,.45); transform: translateX(5px); }
+
+    .exp-head {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; gap: 1rem;
+      flex-wrap: wrap; margin-bottom: .8rem;
+    }
+    .exp-title   { font-weight: 800; font-size: 1.02rem; }
+    .exp-company { color: var(--accent); font-weight: 600; font-size: .88rem; margin-top: .18rem; }
+    .exp-period  {
+      font-size: .72rem; font-weight: 700; letter-spacing: .06em;
+      color: var(--text-muted); background: var(--surface-2);
+      padding: .25rem .8rem; border-radius: 99px; white-space: nowrap; flex-shrink: 0;
+    }
+
+    .exp-bullets { padding-left: .5rem; display: flex; flex-direction: column; gap: .35rem; }
+    .exp-bullets li {
+      position: relative; padding-left: 1.1rem;
+      color: var(--text-muted); font-size: .88rem; line-height: 1.68;
+    }
+    .exp-bullets li::before { content: '▹'; position: absolute; left: 0; color: var(--accent); }
+
+    .exp-tags { display: flex; flex-wrap: wrap; gap: .45rem; margin-top: 1rem; }
+
+    /* ===== PROJECTS ===== */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1.4rem;
+    }
+    .proj-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.7rem;
+      display: flex; flex-direction: column; gap: 1rem;
+      transition: border-color .22s var(--ease), transform .22s var(--ease);
+    }
+    .proj-card:hover { border-color: rgba(83,194,139,.45); transform: translateY(-5px); }
+
+    .proj-icon {
+      width: 46px; height: 46px;
+      background: var(--accent-dim); border-radius: 10px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.3rem;
+    }
+    .proj-title { font-weight: 800; font-size: .97rem; }
+    .proj-desc  { color: var(--text-muted); font-size: .86rem; line-height: 1.72; flex: 1; }
+
+    .proj-foot {
+      display: flex; align-items: center;
+      justify-content: space-between; flex-wrap: wrap; gap: .5rem;
+    }
+    .proj-tags { display: flex; flex-wrap: wrap; gap: .4rem; }
+    .proj-link {
+      font-size: .78rem; font-weight: 700; color: var(--accent);
+      display: flex; align-items: center; gap: .3rem;
+      transition: gap .18s var(--ease);
+    }
+    .proj-link:hover { gap: .5rem; }
+
+    /* ===== SKILLS ===== */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 1.3rem;
+    }
+    .skill-group {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.4rem 1.5rem;
+      transition: border-color .22s;
+    }
+    .skill-group:hover { border-color: rgba(83,194,139,.3); }
+    .sg-title {
+      font-size: .7rem; font-weight: 700;
+      letter-spacing: .14em; text-transform: uppercase;
+      color: var(--accent); margin-bottom: .9rem;
+    }
+    .sg-tags { display: flex; flex-wrap: wrap; gap: .45rem; }
+    .sg-tag {
+      font-size: .78rem; font-weight: 500;
+      background: var(--surface-2); color: var(--text);
+      padding: .28rem .7rem; border-radius: 6px;
+      border: 1px solid var(--border);
+      transition: border-color .18s, color .18s;
+    }
+    .sg-tag:hover { border-color: var(--accent); color: var(--accent); }
+
+    /* ===== CONTACT ===== */
+    .contact-wrap { max-width: 640px; margin: 0 auto; text-align: center; }
+    .contact-links {
+      display: flex; flex-wrap: wrap;
+      justify-content: center; gap: 1rem; margin-top: 2.5rem;
+    }
+    .c-link {
+      display: flex; align-items: center; gap: .6rem;
+      background: var(--surface); border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: .85rem 1.4rem;
+      font-weight: 500; font-size: .88rem;
+      transition: border-color .2s, color .2s, transform .2s var(--ease);
+    }
+    .c-link:hover { border-color: var(--accent); color: var(--accent); transform: translateY(-2px); }
+
+    /* ===== FOOTER ===== */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 3rem 0 1.5rem;
+      position: relative; overflow: hidden;
+    }
+    .footer-bg-shape {
+      position: absolute; bottom: -5%; right: -3%;
+      width: 36%; opacity: .045; pointer-events: none;
+    }
+    .footer-top {
+      display: flex; align-items: flex-start;
+      justify-content: space-between; flex-wrap: wrap; gap: 1.8rem;
+      position: relative; z-index: 1; margin-bottom: 2.5rem;
+    }
+    .f-logo       { font-size: 1.05rem; font-weight: 900; letter-spacing: -.02em; }
+    .f-logo span  { color: var(--accent); }
+    .f-tagline    { color: var(--text-muted); font-size: .8rem; margin-top: .25rem; max-width: 300px; }
+    .f-links      { display: flex; gap: 1.5rem; flex-wrap: wrap; }
+    .f-links a    { font-size: .82rem; color: var(--text-muted); transition: color .18s; }
+    .f-links a:hover { color: var(--accent); }
+    .f-socials    { display: flex; gap: .9rem; }
+    .f-socials a  { color: var(--text-muted); transition: color .18s; display: flex; }
+    .f-socials a:hover { color: var(--accent); }
+    .footer-copy  {
+      text-align: center; color: var(--text-muted);
+      font-size: .76rem; padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+      position: relative; z-index: 1;
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 820px) {
+      .nav-links, .nav-socials { display: none; }
+      .nav-toggle { display: flex; }
+    }
+    @media (max-width: 700px) {
+      .about-grid       { grid-template-columns: 1fr; gap: 2.5rem; }
+      .section          { padding: 3.8rem 0; }
+      .projects-grid    { grid-template-columns: 1fr; }
+      .skills-grid      { grid-template-columns: 1fr 1fr; }
+      .footer-top       { flex-direction: column; }
+      .exp-head         { flex-direction: column; }
+      .hero-scroll      { display: none; }
+    }
+    @media (max-width: 480px) {
+      .skills-grid    { grid-template-columns: 1fr; }
+      .contact-links  { flex-direction: column; }
+      .hero-ctas      { flex-direction: column; }
+      .about-ctas     { flex-direction: column; }
+    }
+
+    /* ===== REDUCED MOTION ===== */
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        transition-duration: .01ms !important;
+      }
+      html { scroll-behavior: auto; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== NAVBAR ========== -->
+  <nav class="nav" role="navigation" aria-label="Navigation principale">
+    <div class="container nav-inner">
+
+      <a href="#hero" class="nav-logo">Chihab<span>.</span></a>
+
+      <ul class="nav-links" role="list">
+        <li><a href="#about">À propos</a></li>
+        <li><a href="#experience">Expérience</a></li>
+        <li><a href="#projects">Projets</a></li>
+        <li><a href="#skills">Compétences</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+
+      <div class="nav-socials">
+        <a href="https://www.linkedin.com/in/chihab-kazi-tani-b959092b4" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+          </svg>
+        </a>
+        <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub (à mettre à jour)">
+          <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+        </a>
+      </div>
+
+      <button class="nav-toggle" id="menuToggle" aria-label="Ouvrir le menu" aria-expanded="false">
+        <svg id="iconBurger" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+          <line x1="3" y1="6"  x2="21" y2="6"/>
+          <line x1="3" y1="12" x2="21" y2="12"/>
+          <line x1="3" y1="18" x2="21" y2="18"/>
+        </svg>
+        <svg id="iconX" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true" style="display:none">
+          <line x1="18" y1="6"  x2="6"  y2="18"/>
+          <line x1="6"  y1="6"  x2="18" y2="18"/>
+        </svg>
+      </button>
+
+    </div>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu" role="dialog" aria-modal="true" aria-label="Menu mobile">
+    <a href="#about"      class="mm-link">À propos</a>
+    <a href="#experience" class="mm-link">Expérience</a>
+    <a href="#projects"   class="mm-link">Projets</a>
+    <a href="#skills"     class="mm-link">Compétences</a>
+    <a href="#contact"    class="mm-link">Contact</a>
+    <div class="mm-socials">
+      <a href="https://www.linkedin.com/in/chihab-kazi-tani-b959092b4" target="_blank" rel="noopener" aria-label="LinkedIn">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+          <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+        </svg>
+      </a>
+      <a href="https://github.com" target="_blank" rel="noopener" aria-label="GitHub">
+        <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+
+
+  <!-- ========== HERO ========== -->
+  <section class="hero" id="hero" aria-label="Introduction">
+
+    <!-- Decorative blob (top-right, mirrors reference site's banner-bg-shape) -->
+    <svg class="hero-shape" viewBox="0 0 800 800" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <defs>
+        <radialGradient id="blobGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%"   stop-color="#53c28b"/>
+          <stop offset="100%" stop-color="#1d6b47"/>
+        </radialGradient>
+      </defs>
+      <ellipse cx="420" cy="380" rx="380" ry="340" fill="url(#blobGrad)"/>
+      <ellipse cx="250" cy="220" rx="200" ry="180" fill="url(#blobGrad)" opacity=".5"/>
+      <ellipse cx="640" cy="600" rx="140" ry="120" fill="url(#blobGrad)" opacity=".3"/>
+    </svg>
+
+    <!-- Ambient glow -->
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="container hero-content">
+      <p class="hero-greeting">Bonjour 👋, je suis</p>
+      <h1 class="hero-name">
+        Kazi Tani<br>
+        <span class="hl">Chihab Eddine</span>
+      </h1>
+      <p class="hero-pitch">
+        Étudiant en <strong>MSc AI Applied to Business</strong> à Eugenia School Paris —
+        passionné par la <strong>data science</strong>, le <strong>machine learning</strong> et la
+        prise de décision augmentée par l'IA. En recherche d'<strong>alternance
+        à partir de septembre 2026</strong>.
+      </p>
+      <div class="hero-ctas">
+        <a href="#projects" class="btn btn-primary">Voir mes projets →</a>
+        <a href="#contact"  class="btn btn-outline">Me contacter</a>
+      </div>
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <span>Scroll</span>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+        <polyline points="6 9 12 15 18 9"/>
+      </svg>
+    </div>
+  </section>
+
+
+  <!-- ========== ABOUT ========== -->
+  <section class="section" id="about" aria-label="À propos">
+    <div class="container">
+      <span class="section-eyebrow">01 — À propos</span>
+      <h2 class="section-title">Mon parcours</h2>
+      <p class="section-sub">De l'algorithmique à l'intelligence artificielle appliquée aux décisions business.</p>
+
+      <div class="about-grid">
+        <!-- Left: bio -->
+        <div class="about-text">
+          <p>
+            Passionné par l'informatique depuis mes premières années d'études,
+            j'ai construit des bases solides en algorithmique, bases de données et
+            développement web à l'Université Abou Bekr Belkaid (Tlemcen, Algérie),
+            où j'ai terminé <strong>major de promotion</strong>.
+          </p>
+          <p>
+            Une mobilité <strong>Erasmus+</strong> à l'Université de Perpignan m'a
+            permis de renforcer mes compétences analytiques et de préciser mon projet
+            professionnel vers la <strong>data et l'aide à la décision</strong>.
+          </p>
+          <p>
+            Aujourd'hui inscrit en <strong>MSc AI Applied to Business</strong> à
+            Eugenia School (Paris), je construis une expertise à l'intersection de la
+            data science et de la stratégie business — Python, Power BI, SQL,
+            Dataiku et bien d'autres.
+          </p>
+          <p>
+            Je cherche une <strong>alternance à partir de septembre 2026</strong>
+            (4 jours en entreprise, le mercredi en classe).
+          </p>
+          <div class="about-ctas">
+            <a href="https://www.linkedin.com/in/chihab-kazi-tani-b959092b4"
+               target="_blank" rel="noopener noreferrer"
+               class="btn btn-primary" style="font-size:.82rem;padding:.55rem 1.15rem;">
+              LinkedIn
+            </a>
+            <a href="mailto:kazichihab12@gmail.com"
+               class="btn btn-outline" style="font-size:.82rem;padding:.55rem 1.15rem;">
+              kazichihab12@gmail.com
+            </a>
+          </div>
+        </div>
+
+        <!-- Right: education -->
+        <div>
+          <p class="section-eyebrow" style="margin-bottom:.8rem;">Formation</p>
+          <div class="edu-list">
+
+            <div class="edu-card">
+              <div class="edu-date">2026 – 2028</div>
+              <div class="edu-degree">MSc AI Applied to Business</div>
+              <div class="edu-school">Eugenia School · Paris</div>
+              <span class="edu-badge">En cours</span>
+            </div>
+
+            <div class="edu-card">
+              <div class="edu-date">2025 – 2026</div>
+              <div class="edu-degree">Licence Informatique</div>
+              <div class="edu-school">Université Perpignan Via Domitia</div>
+              <span class="edu-badge">🌍 Mobilité Erasmus+</span>
+            </div>
+
+            <div class="edu-card">
+              <div class="edu-date">2023 – 2025</div>
+              <div class="edu-degree">Licence 2 Informatique</div>
+              <div class="edu-school">Université Abou Bekr Belkaid · Tlemcen, Algérie</div>
+              <span class="edu-badge">🏆 Major de promotion</span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========== EXPERIENCE ========== -->
+  <section class="section" id="experience" aria-label="Expériences professionnelles">
+    <div class="container">
+      <span class="section-eyebrow">02 — Expérience</span>
+      <h2 class="section-title">Parcours professionnel</h2>
+      <p class="section-sub">Développement web, support informatique et data science.</p>
+
+      <div class="exp-list">
+
+        <!-- Freelance -->
+        <div class="exp-card">
+          <div class="exp-head">
+            <div>
+              <div class="exp-title">Développeur Web Freelance</div>
+              <div class="exp-company">Auto-entrepreneur</div>
+            </div>
+            <span class="exp-period">2021 – Présent</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Développement de sites web sur-mesure pour divers clients</li>
+            <li>Intégration front-end avec HTML/CSS et WordPress</li>
+            <li>Développement back-end avec PHP et gestion de bases de données MySQL</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">HTML/CSS</span>
+            <span class="tag">PHP</span>
+            <span class="tag">WordPress</span>
+            <span class="tag">MySQL</span>
+          </div>
+        </div>
+
+        <!-- STAR SPA -->
+        <div class="exp-card">
+          <div class="exp-head">
+            <div>
+              <div class="exp-title">Technicien Informatique</div>
+              <div class="exp-company">STAR SPA</div>
+            </div>
+            <span class="exp-period">Jan – Juin 2025 · 6 mois</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Support technique aux utilisateurs et résolution des incidents matériels et logiciels</li>
+            <li>Installation et configuration de postes de travail sous Windows et Linux</li>
+            <li>Administration et maintenance des systèmes selon les bonnes pratiques de sécurité</li>
+            <li>Documentation des interventions et optimisation des processus de maintenance</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Windows</span>
+            <span class="tag">Linux</span>
+            <span class="tag">Support IT</span>
+            <span class="tag">Sécurité</span>
+          </div>
+        </div>
+
+        <!-- KD Concept -->
+        <div class="exp-card">
+          <div class="exp-head">
+            <div>
+              <div class="exp-title">Stagiaire Data Analyste</div>
+              <div class="exp-company">KD Concept</div>
+            </div>
+            <span class="exp-period">Juin – Août 2020 · 3 mois</span>
+          </div>
+          <ul class="exp-bullets">
+            <li>Pipeline de modélisation prédictive pour analyser la satisfaction client</li>
+            <li>Analyses géospatiales pour identifier les tendances régionales influençant le comportement client</li>
+            <li>Développement et évaluation de modèles ML : RandomForest, XGBoost, AdaBoost</li>
+            <li>Interface interactive avec Streamlit et Plotly pour la visualisation des résultats analytiques</li>
+            <li>Nettoyage et structuration des données avec Python et SQL</li>
+          </ul>
+          <div class="exp-tags">
+            <span class="tag">Python</span>
+            <span class="tag">SQL</span>
+            <span class="tag">Scikit-learn</span>
+            <span class="tag">XGBoost</span>
+            <span class="tag">Streamlit</span>
+            <span class="tag">Plotly</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========== PROJECTS ========== -->
+  <section class="section" id="projects" aria-label="Projets">
+    <div class="container">
+      <span class="section-eyebrow">03 — Projets</span>
+      <h2 class="section-title">Mes réalisations</h2>
+      <p class="section-sub">Projets data et analytiques développés en autonomie ou en contexte professionnel.</p>
+
+      <div class="projects-grid">
+
+        <!-- Power BI Dashboard -->
+        <div class="proj-card">
+          <div class="proj-icon">📊</div>
+          <div class="proj-title">Dashboard RH – Analyse du Turnover</div>
+          <p class="proj-desc">
+            Nettoyage et transformation d'un dataset RH, puis création d'un dashboard
+            Power BI interactif pour analyser le turnover et identifier les tendances
+            business clés influençant la rétention des collaborateurs.
+          </p>
+          <div class="proj-foot">
+            <div class="proj-tags">
+              <span class="tag">Power BI</span>
+              <span class="tag">Data Cleaning</span>
+              <span class="tag">RH Analytics</span>
+            </div>
+            <a href="https://github.com" target="_blank" rel="noopener" class="proj-link">
+              GitHub
+              <svg width="12" height="12" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
+                <line x1="5" y1="12" x2="19" y2="12"/>
+                <polyline points="12 5 19 12 12 19"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Predictive Pipeline -->
+        <div class="proj-card">
+          <div class="proj-icon">🤖</div>
+          <div class="proj-title">Pipeline Prédictif – Satisfaction Client</div>
+          <p class="proj-desc">
+            Modélisation prédictive complète : préparation des données, analyses
+            géospatiales, entraînement de modèles RandomForest / XGBoost / AdaBoost
+            et visualisation des résultats via une interface Streamlit + Plotly.
+          </p>
+          <div class="proj-foot">
+            <div class="proj-tags">
+              <span class="tag">Python</span>
+              <span class="tag">ML</span>
+              <span class="tag">Streamlit</span>
+              <span class="tag">Plotly</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Freelance Web -->
+        <div class="proj-card">
+          <div class="proj-icon">🌐</div>
+          <div class="proj-title">Développement Web – Projets Clients</div>
+          <p class="proj-desc">
+            Conception et développement de sites web pour divers clients : intégration
+            front-end (HTML/CSS, WordPress) et développement back-end PHP avec gestion
+            de bases de données MySQL depuis 2021.
+          </p>
+          <div class="proj-foot">
+            <div class="proj-tags">
+              <span class="tag">HTML/CSS</span>
+              <span class="tag">PHP</span>
+              <span class="tag">WordPress</span>
+              <span class="tag">MySQL</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========== SKILLS ========== -->
+  <section class="section" id="skills" aria-label="Compétences">
+    <div class="container">
+      <span class="section-eyebrow">04 — Compétences</span>
+      <h2 class="section-title">Stack technique</h2>
+      <p class="section-sub">Des outils data &amp; business aux technologies web et systèmes.</p>
+
+      <div class="skills-grid">
+
+        <div class="skill-group">
+          <div class="sg-title">Langages</div>
+          <div class="sg-tags">
+            <span class="sg-tag">Python</span>
+            <span class="sg-tag">SQL</span>
+            <span class="sg-tag">PHP</span>
+            <span class="sg-tag">HTML / CSS</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="sg-title">Data &amp; ML</div>
+          <div class="sg-tags">
+            <span class="sg-tag">Pandas</span>
+            <span class="sg-tag">Scikit-learn</span>
+            <span class="sg-tag">XGBoost</span>
+            <span class="sg-tag">Streamlit</span>
+            <span class="sg-tag">Plotly</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="sg-title">BI &amp; Visualisation</div>
+          <div class="sg-tags">
+            <span class="sg-tag">Power BI</span>
+            <span class="sg-tag">Dataiku</span>
+            <span class="sg-tag">Google Sheets</span>
+            <span class="sg-tag">Excel</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="sg-title">Business &amp; CRM</div>
+          <div class="sg-tags">
+            <span class="sg-tag">HubSpot</span>
+            <span class="sg-tag">Google Analytics</span>
+            <span class="sg-tag">Airtable</span>
+            <span class="sg-tag">Zapier</span>
+            <span class="sg-tag">Notion</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="sg-title">Web &amp; Systèmes</div>
+          <div class="sg-tags">
+            <span class="sg-tag">WordPress</span>
+            <span class="sg-tag">MySQL</span>
+            <span class="sg-tag">Linux</span>
+            <span class="sg-tag">Windows</span>
+          </div>
+        </div>
+
+        <div class="skill-group">
+          <div class="sg-title">Langues</div>
+          <div class="sg-tags">
+            <span class="sg-tag">🇫🇷 Français – Natif</span>
+            <span class="sg-tag">🇬🇧 Anglais – B2</span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ========== CONTACT ========== -->
+  <section class="section" id="contact" aria-label="Contact">
+    <div class="container">
+      <div class="contact-wrap">
+        <span class="section-eyebrow">05 — Contact</span>
+        <h2 class="section-title">Travaillons ensemble</h2>
+        <p class="section-sub" style="margin:0 auto;text-align:center;">
+          Je suis disponible pour une alternance à partir de
+          <strong style="color:var(--text)">septembre 2026</strong>.<br>
+          N'hésitez pas à me contacter pour en discuter !
+        </p>
+
+        <div class="contact-links">
+
+          <a href="mailto:kazichihab12@gmail.com" class="c-link">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <rect x="2" y="4" width="20" height="16" rx="2"/>
+              <polyline points="22,6 12,13 2,6"/>
+            </svg>
+            kazichihab12@gmail.com
+          </a>
+
+          <a href="tel:0752979110" class="c-link">
+            <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.38 2 2 0 0 1 3.59 1h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L7.91 8.6a16 16 0 0 0 6 6l.87-.87a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/>
+            </svg>
+            07 52 97 91 10
+          </a>
+
+          <a href="https://www.linkedin.com/in/chihab-kazi-tani-b959092b4" target="_blank" rel="noopener noreferrer" class="c-link">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+            </svg>
+            LinkedIn
+          </a>
+
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" class="c-link">
+            <svg width="18" height="18" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+            GitHub
+          </a>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ========== FOOTER ========== -->
+  <footer>
+    <!-- Decorative blob (bottom-right, mirrors reference site's footer-bg-shape) -->
+    <svg class="footer-bg-shape" viewBox="0 0 600 600" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <ellipse cx="320" cy="320" rx="290" ry="260" fill="#53c28b"/>
+      <ellipse cx="480" cy="140" rx="160" ry="140" fill="#53c28b" opacity=".5"/>
+    </svg>
+
+    <div class="container">
+      <div class="footer-top">
+
+        <div>
+          <div class="f-logo">Chihab<span>.</span></div>
+          <div class="f-tagline">Étudiant MSc AI Applied to Business · En recherche d'alternance à partir de septembre 2026</div>
+        </div>
+
+        <ul class="f-links" role="list">
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#experience">Expérience</a></li>
+          <li><a href="#projects">Projets</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+
+        <div class="f-socials">
+          <a href="https://www.linkedin.com/in/chihab-kazi-tani-b959092b4" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+              <rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/>
+            </svg>
+          </a>
+          <a href="https://github.com" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/>
+            </svg>
+          </a>
+        </div>
+
+      </div>
+      <div class="footer-copy">
+        © 2026 Kazi Tani Chihab Eddine — Tous droits réservés
+      </div>
+    </div>
+  </footer>
+
+
+  <!-- ========== JAVASCRIPT ========== -->
+  <script>
+    /* ---- Mobile menu ---- */
+    const toggle   = document.getElementById('menuToggle');
+    const menu     = document.getElementById('mobileMenu');
+    const iconB    = document.getElementById('iconBurger');
+    const iconX    = document.getElementById('iconX');
+
+    function closeMenu() {
+      menu.classList.remove('open');
+      toggle.setAttribute('aria-expanded', 'false');
+      iconB.style.display = 'block';
+      iconX.style.display = 'none';
+    }
+
+    toggle.addEventListener('click', () => {
+      const isOpen = menu.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', String(isOpen));
+      iconB.style.display = isOpen ? 'none'  : 'block';
+      iconX.style.display = isOpen ? 'block' : 'none';
+    });
+
+    document.querySelectorAll('.mm-link').forEach(l => l.addEventListener('click', closeMenu));
+
+    /* ---- Active nav link on scroll ---- */
+    const sections = document.querySelectorAll('section[id]');
+    const navAs    = document.querySelectorAll('.nav-links a');
+
+    const spy = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        navAs.forEach(a => a.classList.remove('active'));
+        const a = document.querySelector(`.nav-links a[href="#${e.target.id}"]`);
+        if (a) a.classList.add('active');
+      });
+    }, { rootMargin: '-42% 0px -54% 0px' });
+
+    sections.forEach(s => spy.observe(s));
+
+    /* ---- Scroll-reveal ---- */
+    const revealTargets = document.querySelectorAll(
+      '.exp-card, .proj-card, .skill-group, .edu-card, .c-link'
+    );
+
+    const reveal = new IntersectionObserver(entries => {
+      entries.forEach(e => {
+        if (!e.isIntersecting) return;
+        e.target.style.opacity   = '1';
+        e.target.style.transform = 'translate(0,0)';
+        reveal.unobserve(e.target);
+      });
+    }, { threshold: 0.1 });
+
+    /* Respect prefers-reduced-motion */
+    const motion = window.matchMedia('(prefers-reduced-motion: reduce)');
+    if (!motion.matches) {
+      revealTargets.forEach(el => {
+        const isExp = el.classList.contains('exp-card');
+        el.style.opacity    = '0';
+        el.style.transform  = isExp ? 'translateX(-18px)' : 'translateY(18px)';
+        el.style.transition = 'opacity .5s ease, transform .5s ease';
+        reveal.observe(el);
+      });
+    }
+  </script>
+
+</body>
+</html>
